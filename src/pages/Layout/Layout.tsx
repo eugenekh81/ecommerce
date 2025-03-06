@@ -6,9 +6,9 @@ import { NavLink, Outlet } from 'react-router';
 export const Layout: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className='flex h-screen'>
-      <aside className='flex-shrink-0'>
-        <IconButton onClick={() => setIsOpen(true)} size='large'>
+    <div className='grid grid-cols-[48px_1fr] h-full'>
+      <aside className='flex-shrink-0 row-start-1'>
+        <IconButton onClick={() => setIsOpen(true)} size='large' className='fixed! top-0 z-10'>
           <MenuIcon color='info' />
         </IconButton>
         <Drawer
@@ -29,11 +29,11 @@ export const Layout: React.FC = () => {
           </nav>
         </Drawer>
       </aside>
-      <main className='flex flex-shrink-0'>
+      <main className='flex col-span-2 row-start-1'>
         <Outlet />
       </main>
 
-      <footer>(C) 2025</footer>
+      <footer className='col-span-full'>(C) 2025</footer>
     </div>
   );
 };

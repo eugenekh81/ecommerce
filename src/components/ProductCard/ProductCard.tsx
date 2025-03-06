@@ -9,7 +9,7 @@ export const ProductCard: React.FC<ProductIS> = ({
   rating,
 }) => {
   return (
-    <div className='flex flex-col items-center  bg-[#fff] w-[300px] gap-[30px] p-8'>
+    <div className='flex flex-col items-center  bg-[#fff] w-[300px] gap-[30px] p-8 rounded-2xl'>
       <img src={image} alt={title} className='h-[160px]' />
       <h2 className='text-[#212121] font-bold text-[18px]'>{title}</h2>
       <p className='text-[#212121]'>{description}</p>

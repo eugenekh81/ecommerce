@@ -7,7 +7,7 @@ import { Layout } from './pages/Layout/Layout.tsx';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/ecommerce',
     element: <Layout />,
     children: [
       {

@@ -20,10 +20,10 @@ export const Layout: React.FC = () => {
           <nav className='w-[240px]'>
             <ul>
               <li>
-                <NavLink to='/'>Home</NavLink>
+                <NavLink to='/ecommerce/'>Home</NavLink>
               </li>
               <li>
-                <NavLink to='about'>About</NavLink>
+                <NavLink to='/ecommerce/about'>About</NavLink>
               </li>
             </ul>
           </nav>

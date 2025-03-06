@@ -23,7 +23,7 @@ export const Layout: React.FC = () => {
                 <NavLink to='/'>Home</NavLink>
               </li>
               <li>
-                <NavLink to='/about'>About</NavLink>
+                <NavLink to='about'>About</NavLink>
               </li>
             </ul>
           </nav>

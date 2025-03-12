@@ -1,27 +1,30 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { ProductIS } from './types/ProductIS';
-import { ProductCard } from './components/ProductCard';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+
+import { HomePage } from './pages/HomePage/';
+import { AboutPage } from './pages/AboutPage/';
+import { Layout } from './components/Layout';
+
+const router = createBrowserRouter([
+  {
+    path: '/ecommerce',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'about',
+        element: <AboutPage />,
+      },
+    ],
+  },
+]);
 
 export const App: React.FC = () => {
-  const [products, setProducts] = useState<ProductIS[] | []>([]);
-
-  const loadData = async () => {
-    const response = await fetch('https://fakestoreapi.com/products');
-    const data = await response.json();
-
-    setProducts(data);
-  };
-
-  useEffect(() => {
-    loadData();
-  }, []);
 
   return (
-    <>
-      {products.map((product) => (
-        <ProductCard key={product.id} {...product} />
-      ))}
-    </>
+    <RouterProvider router={router} />
   );
 };

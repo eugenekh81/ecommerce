@@ -1,27 +1,15 @@
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import './index.css';
-import { HomePage } from './pages/HomePage/';
-import { AboutPage } from './pages/AboutPage/';
-import { Layout } from './pages/Layout/';
 
-const router = createBrowserRouter([
-  {
-    path: '/ecommerce',
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: 'about',
-        element: <AboutPage />,
-      }
-    ],
-  },
-]);
+import React from 'react';
+import { App } from './App';
 
 createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );

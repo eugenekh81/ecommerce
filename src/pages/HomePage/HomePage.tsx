@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { ProductList } from '../../components/ProductList';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../../store/store';
-import { fetchProducts } from '../../store/productsSlice';
+import { RootState, AppDispatch } from '../../redux/store';
+import { fetchProducts } from '../../redux/slices/productsSlice';
 import { CircularProgress, Typography } from '@mui/material';
 
 export const HomePage: React.FC = () => {
@@ -30,9 +30,5 @@ export const HomePage: React.FC = () => {
     );
   if (error) return <Typography color='error'>Error: {error}</Typography>;
 
-  return (
-    <>
-      <ProductList products={items} />
-    </>
-  );
+  return items.length > 0 && <ProductList products={items} />;
 };

@@ -96,7 +96,10 @@ export const Layout: React.FC = () => {
           <ListItem component={Link} to='/ecommerce'>
             <ListItemText primary='Home' />
           </ListItem>
-          <ListItem component={Link} to='/ecommerce/cart'>
+          <ListItem component={Link} to='products'>
+            <ListItemText primary='Products' />
+          </ListItem>
+          <ListItem component={Link} to='cart'>
             <ListItemText primary='Cart' />
           </ListItem>
         </List>

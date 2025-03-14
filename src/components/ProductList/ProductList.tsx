@@ -7,7 +7,6 @@ type Props = {
 };
 
 export const ProductList: React.FC<Props> = ({ products }) => {
-
   return (
     <ul className='flex flex-wrap gap-4 justify-center mx-auto p-12'>
       {products.map((product) => (

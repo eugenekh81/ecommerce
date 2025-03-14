@@ -24,9 +24,8 @@ export const ProductCard: React.FC<ProductIS> = ({
         component='img'
         src={image}
         alt={title}
-        className='h-[160px] object-contain'
         height='160'
-        sx={{ objectFit: 'contain' }}
+        sx={{ objectFit: 'contain', height: '160px' }}
       />
       <Stack direction='column' justifyContent='space-between' gap='18px'>
         <Typography
@@ -59,7 +58,12 @@ export const ProductCard: React.FC<ProductIS> = ({
           <Typography component='p'>Reviews: {rating.count}</Typography>
         </Stack>
         <CardActions>
-          <Button component={Link} to={`product/${id}`} size='small'>
+          <Button
+            variant='contained'
+            component={Link}
+            to={`${id}`}
+            size='small'
+          >
             View product
           </Button>
         </CardActions>

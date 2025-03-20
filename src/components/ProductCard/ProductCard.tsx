@@ -61,7 +61,7 @@ export const ProductCard: React.FC<ProductIS> = ({
           <Button
             variant='contained'
             component={Link}
-            to={`${id}`}
+            to={`/ecommerce/products/${id}`}
             size='small'
           >
             View product

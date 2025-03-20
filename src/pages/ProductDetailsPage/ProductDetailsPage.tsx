@@ -16,6 +16,7 @@ import {
   Container,
   Typography,
 } from '@mui/material';
+import { addToCart } from '../../redux/slices/cartSlice';
 
 export const ProductDetailsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,6 +37,10 @@ export const ProductDetailsPage: React.FC = () => {
   if (error) return <Typography color='error'>Error: {error}</Typography>;
   if (!product) return <Typography>No product found</Typography>;
 
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...product, quantity: 1 }));
+  };
+
   return (
     <Container maxWidth='md' sx={{ mt: 4 }}>
       <Card>
@@ -54,7 +59,12 @@ export const ProductDetailsPage: React.FC = () => {
           <Typography variant='body1' sx={{ mt: 2 }}>
             {product.description}
           </Typography>
-          <Button variant='contained' color='primary' sx={{ mt: 3 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            sx={{ mt: 3 }}
+            onClick={handleAddToCart}
+          >
             Add to Cart
           </Button>
         </CardContent>

@@ -13,10 +13,19 @@ interface CartState {
   totalAmount: number;
 }
 
-const initialState: CartState = {
-  items: [],
-  totalAmount: 0,
+
+const loadCart = (): { items: CartItem[]; totalAmount: number } => {
+  const cart = localStorage.getItem('cart');
+
+  return cart
+    ? JSON.parse(cart)
+    : {
+        items: [],
+        totalAmount: 0,
+      };
 };
+
+const initialState: CartState = loadCart();
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -32,6 +41,21 @@ const cartSlice = createSlice({
       }
 
       state.totalAmount += newItem.price * newItem.quantity;
+    },
+    updateQuantity: (
+      state,
+      action: PayloadAction<{ id: number; quantity: number }>
+    ) => {
+      console.log('updating cart item', action.payload);
+      const item = state.items.find(
+        (item: CartItem) => item.id === action.payload.id
+      );
+
+      if (item) {
+        state.totalAmount +=
+          (action.payload.quantity - item.quantity) * item.price;
+        item.quantity = action.payload.quantity;
+      }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const id = action.payload;
@@ -50,5 +74,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, updateQuantity } =
+  cartSlice.actions;
 export default cartSlice.reducer;

@@ -62,7 +62,7 @@ export const Layout: React.FC = () => {
         sx={{
           width: `calc(100% - ${open ? drawerWidth : 0}px)`,
           ml: `${open ? drawerWidth : 0}px`,
-          transition: 'width 0.3s ease',
+          transition: 'width 0.3s ease-in-out',
         }}
       >
         <Toolbar>
@@ -79,7 +79,8 @@ export const Layout: React.FC = () => {
         open={open}
         onClose={toggleDrawer}
         sx={{
-          width: drawerWidth,
+          width: open ? drawerWidth : 0,
+          transition: 'width 0.3s ease-in-out',
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
@@ -109,9 +110,8 @@ export const Layout: React.FC = () => {
       <main
         style={{
           flexGrow: 1,
-          padding: '20px',
-          marginLeft: open ? drawerWidth : 0, // Adjust width based on drawer state
-          transition: 'margin-left 0.3s ease', // Smooth transition when opening/closing drawer
+          padding: '64px 20px 20px',
+          transition: 'margin-left 0.3s ease-in-out', // Smooth transition when opening/closing drawer
         }}
       >
         <Outlet />

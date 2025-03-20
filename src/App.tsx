@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import { HomePage } from './pages/HomePage/';
 import { AboutPage } from './pages/AboutPage/';
 import { Layout } from './components/Layout';
-import { ProductDetailsPage } from './pages/ProductDetailsPage/ProductDetailsPage';
+import { ProductDetailsPage } from './pages/ProductDetailsPage';
+import { CartPage } from './pages/CartPage';
+import { CheckoutPage } from './pages/CheckoutPage';
 
 const router = createBrowserRouter([
   {
@@ -26,12 +28,19 @@ const router = createBrowserRouter([
             index: true,
             element: <HomePage />,
           },
-        {
-          path: ':id',
-          element: <ProductDetailsPage />,
-        }
+          {
+            path: ':id',
+            element: <ProductDetailsPage />,
+          },
         ],
-
+      },
+      {
+        path: 'cart',
+        element: <CartPage />,
+      },
+      {
+        path: 'checkout',
+        element: <CheckoutPage />,
       },
     ],
   },

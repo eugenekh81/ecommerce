@@ -1,5 +1,5 @@
 export interface Product {
- category: string;
+  category: string;
   description: string;
   id: number;
   image: string;
@@ -13,7 +13,10 @@ interface Rating {
   count: number;
 }
 
-
-export interface CartItem extends Product {
+export interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
   quantity: number;
 }

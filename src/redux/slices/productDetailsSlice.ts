@@ -38,7 +38,7 @@ const { actions, reducer } = createSlice({
       state.loading = false;
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setLoading: (state, action: PayloadAction<number>) => {
+    setLoading: (state, _action: PayloadAction<number>) => {
       state.loading = true;
       state.error = null;
     },

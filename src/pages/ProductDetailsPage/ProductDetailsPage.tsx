@@ -5,7 +5,8 @@ import { RootState } from '../../redux/store';
 import { useEffect } from 'react';
 import {
   clearProduct,
-  fetchProductDetails,
+  setLoading,
+  setProduct,
 } from '../../redux/slices/productDetailsSlice';
 import {
   Button,
@@ -24,9 +25,10 @@ export const ProductDetailsPage: React.FC = () => {
   const { product, loading, error } = useSelector(
     (state: RootState) => state.productDetails
   );
+  console.log(id);
 
   useEffect(() => {
-    if (id) dispatch(fetchProductDetails(+id));
+    if (id) dispatch(setLoading(+id));
 
     return () => {
       dispatch(clearProduct());

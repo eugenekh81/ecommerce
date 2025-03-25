@@ -1,16 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const API_URL = 'https://fakestoreapi.com/products';
-
-export const fetchProductDetails = createAsyncThunk(
-  'products/fetchProducts',
-  async (id: number) => {
-    const { data } = await axios.get(`${API_URL}/${id}`);
-
-    return data;
-  }
-);
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Product {
   id: number;
@@ -33,30 +21,29 @@ const initialState: ProductDetailState = {
   error: null,
 };
 
-const productDetailSlice = createSlice({
+const { actions, reducer } = createSlice({
   name: 'productDetail',
   initialState,
   reducers: {
     clearProduct: (state) => {
       state.product = null;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchProductDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchProductDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.product = action.payload;
-      })
-      .addCase(fetchProductDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Failed to fetch product';
-      });
+    setProduct: (state, action: PayloadAction<Product>) => {
+      state.error = null;
+      state.loading = false;
+      state.product = action.payload;
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setLoading: (state, action: PayloadAction<number>) => {
+      state.loading = true;
+      state.error = null;
+    },
   },
 });
 
-export const { clearProduct } = productDetailSlice.actions;
-export default productDetailSlice.reducer;
+const { clearProduct, setLoading, setError, setProduct } = actions;
+export { clearProduct, setLoading, setError, setProduct, reducer };

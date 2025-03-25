@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { ProductList } from '../../components/ProductList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../redux/store';
-import { fetchProducts } from '../../redux/slices/productsSlice';
 import { CircularProgress, Typography } from '@mui/material';
+import { setLoading } from '../../redux/slices/productsSlice';
 
 export const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -12,7 +12,7 @@ export const HomePage: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(setLoading(true));
   }, [dispatch]);
 
   if (loading)
@@ -28,6 +28,7 @@ export const HomePage: React.FC = () => {
         }}
       />
     );
+
   if (error) return <Typography color='error'>Error: {error}</Typography>;
 
   return items.length > 0 && <ProductList products={items} />;

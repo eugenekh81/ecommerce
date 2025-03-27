@@ -3,7 +3,7 @@ import { ProductList } from '../../components/ProductList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../redux/store';
 import { CircularProgress, Typography } from '@mui/material';
-import { setLoading } from '../../redux/slices/productsSlice';
+import { fetchProducts } from '../../redux/slices/productsSlice';
 
 export const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -12,7 +12,7 @@ export const HomePage: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(setLoading(true));
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   if (loading)

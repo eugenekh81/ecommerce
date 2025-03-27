@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '../types';
 
+const fetchProducts = createAction('products/fetchProducts');
 
 interface ProductsState {
   items: Product[];
@@ -34,4 +35,4 @@ const { actions, reducer } = createSlice({
 });
 
 const { setLoading, setError, setProducts } = actions;
-export { setLoading, setError, setProducts, reducer };
+export { setLoading, setError, setProducts, fetchProducts, reducer };

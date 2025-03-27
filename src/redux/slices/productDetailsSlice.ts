@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+const fetchProduct = createAction<number>('productDetail/fetchProduct');
 
 interface Product {
   id: number;
@@ -37,13 +39,19 @@ const { actions, reducer } = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setLoading: (state, _action: PayloadAction<number>) => {
-      state.loading = true;
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
       state.error = null;
     },
   },
 });
 
 const { clearProduct, setLoading, setError, setProduct } = actions;
-export { clearProduct, setLoading, setError, setProduct, reducer };
+export {
+  clearProduct,
+  setLoading,
+  setError,
+  setProduct,
+  fetchProduct,
+  reducer,
+};

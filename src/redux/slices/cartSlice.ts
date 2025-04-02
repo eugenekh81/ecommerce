@@ -14,7 +14,7 @@ interface CartState {
 }
 
 
-const loadCart = (): { items: CartItem[]; totalAmount: number } => {
+const loadCartFromLS = (): { items: CartItem[]; totalAmount: number } => {
   const cart = localStorage.getItem('cart');
 
   return cart
@@ -25,7 +25,7 @@ const loadCart = (): { items: CartItem[]; totalAmount: number } => {
       };
 };
 
-const initialState: CartState = loadCart();
+const initialState: CartState = loadCartFromLS();
 
 const cartSlice = createSlice({
   name: 'cart',

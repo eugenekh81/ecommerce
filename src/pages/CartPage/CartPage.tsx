@@ -25,6 +25,7 @@ export const CartPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { items, totalAmount } = useSelector((state: RootState) => state.cart);
+  console.log(items, totalAmount, 'items, totalAmount');
 
   const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));

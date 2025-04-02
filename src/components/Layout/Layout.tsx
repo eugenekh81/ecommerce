@@ -1,18 +1,15 @@
 import {
-  AppBar,
   CssBaseline,
   Drawer,
-  IconButton,
   List,
   ListItem,
   ListItemText,
-  Toolbar,
-  Typography,
 } from '@mui/material';
-// import MenuIcon from '@mui/icons-material/Menu';
-import { Menu } from '@mui/icons-material';
+
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router';
+
+import { Navbar } from '../Navbar/';
 
 const drawerWidth = 240;
 
@@ -24,54 +21,14 @@ export const Layout: React.FC = () => {
   };
 
   return (
-    // <div className='grid grid-cols-[48px_1fr] h-full'>
-    //   <aside className='flex-shrink-0 row-start-1'>
-    //     <IconButton onClick={() => setIsOpen(true)} size='large' className='fixed! top-0 z-10'>
-    //       <MenuIcon color='info' />
-    //     </IconButton>
-    //     <Drawer
-    //       anchor='left'
-    //       open={isOpen}
-    //       onClose={() => setIsOpen(false)}
-    //       className='w-[100%]'
-    //     >
-    //       <nav className='w-[240px]'>
-    //         <ul>
-    //           <li>
-    //             <NavLink to='/ecommerce/'>Home</NavLink>
-    //           </li>
-    //           <li>
-    //             <NavLink to='/ecommerce/about'>About</NavLink>
-    //           </li>
-    //         </ul>
-    //       </nav>
-    //     </Drawer>
-    //   </aside>
-    //   <main className='flex col-span-2 row-start-1'>
-    //     <Outlet />
-    //   </main>
-
-    //   <footer className='col-span-full'>(C) 2025</footer>
-    // </div>
-
     <div style={{ display: 'flex' }}>
       <CssBaseline />
 
-      <AppBar
-        position='fixed'
-        sx={{
-          width: `calc(100% - ${open ? drawerWidth : 0}px)`,
-          ml: `${open ? drawerWidth : 0}px`,
-          transition: 'width 0.3s ease-in-out',
-        }}
-      >
-        <Toolbar>
-          <IconButton color='inherit' edge='start' onClick={toggleDrawer}>
-            <Menu />
-          </IconButton>
-          <Typography variant='h6'>My eCommerce</Typography>
-        </Toolbar>
-      </AppBar>
+      <Navbar
+        open={open}
+        drawerWidth={drawerWidth}
+        toggleDrawer={toggleDrawer}
+      />
 
       {/* Sidebar (Persistent Drawer) */}
       <Drawer

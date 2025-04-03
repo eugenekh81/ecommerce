@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer as productDetailsReducer } from './slices/productDetailsSlice';
 import { reducer as productsReducer } from './slices/productsSlice';
+import { reducer as favoritesReducer } from './slices/favoritesSlice';
 import cartReducer from './slices/cartSlice';
 import { listenerMiddleware } from './listenerMiddleware';
 
@@ -13,6 +14,7 @@ const store = configureStore({
     products: productsReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
+    favorites: favoritesReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().prepend(listenerMiddleware.middleware);

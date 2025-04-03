@@ -11,19 +11,16 @@ import {
   ListItemText,
   Typography,
   Box,
+  Button,
 } from '@mui/material';
 
 import { Delete, Remove, Add } from '@mui/icons-material';
 
 type Props = {
   handleCartClose: () => void;
-  isCartOpen: boolean;
 };
 
-export const CartPreview: React.FC<Props> = ({
-  handleCartClose,
-  isCartOpen,
-}) => {
+export const CartPreview: React.FC<Props> = ({ handleCartClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { items } = useSelector((state: RootState) => state.cart);
@@ -36,7 +33,9 @@ export const CartPreview: React.FC<Props> = ({
     }
   };
 
-  console.log(isCartOpen, 'is cart open');
+  const totalPrice = items.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
 
   return (
     <Box>
@@ -101,25 +100,26 @@ export const CartPreview: React.FC<Props> = ({
               />
             </ListItem>
           ))}
-
-          <ListItem
-            onClick={() => {
-              handleCartClose();
-              navigate('/ecommerce/cart');
-            }}
-            sx={{
-              justifyContent: 'center',
-              fontWeight: 'bold',
-              color: 'primary.main',
-              transition: 'background 0.2s',
-              '&:hover': { backgroundColor: 'action.selected' },
-              cursor: 'pointer',
-            }}
-          >
-            View Cart
-          </ListItem>
         </List>
       )}
+      <Typography
+        variant='subtitle1'
+        sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}
+      >
+        Total: ${totalPrice.toFixed(2)}
+      </Typography>
+      <Button
+        fullWidth
+        variant='contained'
+        color='primary'
+        sx={{ mt: 2 }}
+        onClick={() => {
+          handleCartClose();
+          navigate('/ecommerce/cart');
+        }}
+      >
+        View Cart
+      </Button>
     </Box>
   );
 };

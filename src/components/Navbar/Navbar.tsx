@@ -82,10 +82,7 @@ export const Navbar: React.FC<Props> = ({
             },
           }}
         >
-          <CartPreview
-            handleCartClose={handleCartClose}
-            isCartOpen={isCartOpen}
-          />
+          <CartPreview handleCartClose={handleCartClose} />
         </Menu>
       </Toolbar>
     </AppBar>

@@ -13,7 +13,6 @@ interface CartState {
   totalAmount: number;
 }
 
-
 const loadCartFromLS = (): { items: CartItem[]; totalAmount: number } => {
   const cart = localStorage.getItem('cart');
 
@@ -46,15 +45,19 @@ const cartSlice = createSlice({
       state,
       action: PayloadAction<{ id: number; quantity: number }>
     ) => {
-      console.log('updating cart item', action.payload);
-      const item = state.items.find(
-        (item: CartItem) => item.id === action.payload.id
-      );
+      const { id, quantity } = action.payload;
+
+      const item = state.items.find((item: CartItem) => item.id === id);
 
       if (item) {
+        if (quantity <= 0) {
+          state.items = state.items.filter((item) => item.id !== id);
+        } else {
+          item.quantity = quantity;
+        }
+
         state.totalAmount +=
           (action.payload.quantity - item.quantity) * item.price;
-        item.quantity = action.payload.quantity;
       }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {

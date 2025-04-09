@@ -28,15 +28,15 @@ import {
 import { toggleFavorite } from '../../redux/slices/favoritesSlice';
 
 export const ProductCard: React.FC<ProductIS> = (product) => {
-  const { id, title, image, description, price, rating } = product;
+  const { id, image, title, description, price, rating } = product;
 
   const dispatch = useDispatch<AppDispatch>();
-  const { items } = useSelector((state: RootState) => state.cart);
+  const { items: products } = useSelector((state: RootState) => state.cart);
   const { items: favorites } = useSelector(
     (state: RootState) => state.favorites
   );
-  const isFavorite = favorites.includes(id);
-  const cartItem = items.find((item) => item.id === id);
+  const isFavorite = favorites.some((f) => f.id === id);
+  const cartItem = products.find((p) => p.id === id);
 
   return (
     <Card className='flex flex-col items-center bg-[#fff] w-[370px] gap-[30px] p-8 rounded-2xl'>
@@ -92,11 +92,11 @@ export const ProductCard: React.FC<ProductIS> = (product) => {
         >
           <Rating
             name='read-only'
-            value={rating.rate}
+            value={rating?.rate}
             readOnly
             precision={0.1}
           />
-          <Typography component='p'>Reviews: {rating.count}</Typography>
+          <Typography component='p'>Reviews: {rating?.count}</Typography>
         </Stack>
         <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button
@@ -109,7 +109,7 @@ export const ProductCard: React.FC<ProductIS> = (product) => {
           </Button>
           <IconButton
             color={isFavorite ? 'primary' : 'default'}
-            onClick={() => dispatch(toggleFavorite(product.id))}
+            onClick={() => dispatch(toggleFavorite(product))}
           >
             {isFavorite ? <Favorite color={'error'} /> : <FavoriteBorder />}
           </IconButton>

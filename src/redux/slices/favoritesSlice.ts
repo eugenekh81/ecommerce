@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ProductIS } from '../../types/ProductIS';
 
 interface FavoritesSlice {
-  items: number[];
+  items: ProductIS[];
 }
 
 const initialState: FavoritesSlice = {
@@ -12,12 +13,14 @@ const { actions, reducer } = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<number>) => {
-      const productId = action.payload;
-      if (state.items.includes(productId)) {
-        state.items = state.items.filter((id) => id !== productId);
+    toggleFavorite: (state, action: PayloadAction<ProductIS>) => {
+      const existingIndex = state.items.findIndex(
+        (p) => p.id === action.payload.id
+      );
+      if (existingIndex >= 0) {
+        state.items.splice(existingIndex, 1);
       } else {
-        state.items.push(productId);
+        state.items.push(action.payload);
       }
 
       localStorage.setItem('favorites', JSON.stringify(state.items));

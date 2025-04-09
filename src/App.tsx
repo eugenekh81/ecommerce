@@ -7,6 +7,7 @@ import { Layout } from './components/Layout';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { CartPage } from './pages/CartPage';
 import { CheckoutPage } from './pages/CheckoutPage';
+import { FavoritesPage } from './pages/FavoritesPage';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             element: <ProductDetailsPage />,
           },
         ],
+      },
+      {
+        path: 'favorites',
+        element: <FavoritesPage />,
       },
       {
         path: 'cart',

@@ -14,6 +14,7 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+  console.log(items);
 
   if (loading)
     return (

@@ -8,9 +8,11 @@ import {
   IconButton,
   Toolbar,
   Typography,
+  Box,
 } from '@mui/material';
-import { ShoppingCart, Menu as MenuIcon } from '@mui/icons-material';
+import { ShoppingCart, Menu as MenuIcon, Favorite } from '@mui/icons-material';
 import { CartPreview } from '../CartPreview';
+import { useNavigate } from 'react-router';
 
 type Props = {
   open: boolean;
@@ -23,9 +25,15 @@ export const Navbar: React.FC<Props> = ({
   drawerWidth,
   toggleDrawer,
 }) => {
+  const navigate = useNavigate();
+
   const { items } = useSelector((state: RootState) => state.cart);
+  const { items: favorites } = useSelector(
+    (state: RootState) => state.favorites
+  );
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
+  const totalFavorites = favorites.length;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const isCartOpen = Boolean(anchorEl);
@@ -56,16 +64,27 @@ export const Navbar: React.FC<Props> = ({
           <MenuIcon />
         </IconButton>
         <Typography variant='h6'>My eCommerce</Typography>
+        <Box sx={{ display: 'flex', gap: 2, ml: 'auto' }}>
+          <IconButton
+            color='inherit'
+            sx={{ ml: 'auto' }}
+            onClick={() => navigate('favorites')}
+          >
+            <Badge badgeContent={totalFavorites} color='error'>
+              <Favorite />
+            </Badge>
+          </IconButton>
 
-        <IconButton
-          color='inherit'
-          sx={{ ml: 'auto' }}
-          onClick={handleCartDropdownToggle}
-        >
-          <Badge badgeContent={totalItems} color='error'>
-            <ShoppingCart />
-          </Badge>
-        </IconButton>
+          <IconButton
+            color='inherit'
+            sx={{ ml: 'auto' }}
+            onClick={handleCartDropdownToggle}
+          >
+            <Badge badgeContent={totalItems} color='error'>
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
+        </Box>
 
         <Menu
           anchorEl={anchorEl}

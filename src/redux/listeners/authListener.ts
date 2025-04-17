@@ -1,4 +1,4 @@
-import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
+/* import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { setUser, logoutUser, setError } from '../slices/userSlice';
 import { registerUser, loginUser } from '../../api/auth';
 
@@ -15,4 +15,4 @@ authListener.startListening({
       listenerApi.dispatch(setError('Failed to register user'));
     }
   },
-})
+}) */

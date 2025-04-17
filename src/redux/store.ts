@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer as productDetailsReducer } from './slices/productDetailsSlice';
-import { reducer as productsReducer } from './slices/productsSlice';
-import { reducer as favoritesReducer } from './slices/favoritesSlice';
-import cartReducer from './slices/cartSlice';
-import { listenerMiddleware } from './listenerMiddleware';
+import { reducer as productDetailsReducer } from '../pages/ProductDetailsPage/redux/productDetailsSlice';
+import { reducer as productsReducer } from '../pages/ProductsPage/redux/productsSlice';
+import { reducer as favoritesReducer } from '../pages/FavoritesPage/redux/favoritesSlice';
+import cartReducer from '../pages/CartPage/redux/cartSlice';
+import productsListener from '../pages/ProductsPage/redux/listeners';
+import productDetailsListener from '../pages/ProductDetailsPage/redux/listeners';
 
 const saveCart = (state: RootState) => {
   localStorage.setItem('cart', JSON.stringify(state.cart));
@@ -17,7 +18,10 @@ const store = configureStore({
     favorites: favoritesReducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().prepend(listenerMiddleware.middleware);
+    return getDefaultMiddleware().concat(
+      productsListener.middleware,
+      productDetailsListener.middleware
+    );
   },
 });
 

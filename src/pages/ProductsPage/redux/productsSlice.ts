@@ -1,5 +1,5 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Product } from '../types';
+import { Product } from '../../../redux/types';
 
 const fetchProducts = createAction('products/fetchProducts');
 
@@ -19,7 +19,7 @@ const { actions, reducer } = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => {
+    setProductsLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
     setProducts: (state, action: PayloadAction<Product[]>) => {
@@ -27,12 +27,18 @@ const { actions, reducer } = createSlice({
       state.loading = false;
       state.items = action.payload;
     },
-    setError: (state, action: PayloadAction<string>) => {
+    setProductsError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.loading = false;
     },
   },
 });
 
-const { setLoading, setError, setProducts } = actions;
-export { setLoading, setError, setProducts, fetchProducts, reducer };
+const { setProductsLoading, setProductsError, setProducts } = actions;
+export {
+  setProductsLoading,
+  setProductsError,
+  setProducts,
+  fetchProducts,
+  reducer,
+};

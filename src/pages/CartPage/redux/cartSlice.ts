@@ -8,10 +8,10 @@ interface CartItem {
   quantity: number;
 }
 
-interface CartState {
+type CartState = {
   items: CartItem[];
   totalAmount: number;
-}
+};
 
 const loadCartFromLS = (): { items: CartItem[]; totalAmount: number } => {
   const cart = localStorage.getItem('cart');
@@ -50,14 +50,15 @@ const cartSlice = createSlice({
       const item = state.items.find((item: CartItem) => item.id === id);
 
       if (item) {
+        const prevQuantity = item.quantity;
+
         if (quantity <= 0) {
           state.items = state.items.filter((item) => item.id !== id);
+          state.totalAmount -= prevQuantity * item.price;
         } else {
           item.quantity = quantity;
+          state.totalAmount += (quantity - prevQuantity) * item.price;
         }
-
-        state.totalAmount +=
-          (action.payload.quantity - item.quantity) * item.price;
       }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {

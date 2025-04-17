@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductIS } from '../../types/ProductIS';
+import { ProductIS } from '../../../types/ProductIS';
 
 interface FavoritesSlice {
   items: ProductIS[];

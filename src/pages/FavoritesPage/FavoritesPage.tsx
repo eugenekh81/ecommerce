@@ -1,16 +1,12 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Box, Typography, Grid } from '@mui/material';
 import { ProductCard } from '../../components/ProductCard'; // Assuming you already have the ProductCard component
 import { ProductIS } from '../../types/ProductIS';
+import { favoritesSelector } from './redux/selectors';
 
 export const FavoritesPage: React.FC = () => {
-  // const dispatch = useDispatch<AppDispatch>();
-  const { items: favorites } = useSelector(
-    (state: RootState) => state.favorites
-  );
+  const { items: favorites } = useSelector(favoritesSelector, shallowEqual);
 
-  // Filter products that are in the favorites list
   console.log(favorites, 'favorites');
 
   return (

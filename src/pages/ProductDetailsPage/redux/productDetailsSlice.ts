@@ -13,14 +13,14 @@ interface Product {
 
 interface ProductDetailState {
   product: Product | null;
-  loading: boolean;
-  error: string | null;
+  productLoading: boolean;
+  productError: string | null;
 }
 
 const initialState: ProductDetailState = {
   product: null,
-  loading: false,
-  error: null,
+  productLoading: false,
+  productError: null,
 };
 
 const { actions, reducer } = createSlice({
@@ -31,26 +31,31 @@ const { actions, reducer } = createSlice({
       state.product = null;
     },
     setProduct: (state, action: PayloadAction<Product>) => {
-      state.error = null;
-      state.loading = false;
+      state.productError = null;
+      state.productLoading = false;
       state.product = action.payload;
     },
-    setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.loading = false;
+    setProductError: (state, action: PayloadAction<string>) => {
+      state.productError = action.payload;
+      state.productLoading = false;
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-      state.error = null;
+    setProductLoading: (state, action: PayloadAction<boolean>) => {
+      state.productLoading = action.payload;
+      state.productError = null;
     },
   },
 });
 
-const { clearProduct, setLoading, setError, setProduct } = actions;
+const {
+  clearProduct,
+  setProductLoading,
+  setProductError,
+  setProduct,
+} = actions;
 export {
   clearProduct,
-  setLoading,
-  setError,
+  setProductLoading,
+  setProductError,
   setProduct,
   fetchProduct,
   reducer,

@@ -1,8 +1,9 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import { HomePage } from './pages/HomePage/';
-import { AboutPage } from './pages/AboutPage/';
+import { HomePage } from './pages/HomePage';
+import { ProductsPage } from './pages/ProductsPage';
+import { AboutPage } from './pages/AboutPage';
 import { Layout } from './components/Layout';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { CartPage } from './pages/CartPage';
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <HomePage />,
+            element: <ProductsPage />,
           },
           {
             path: ':id',

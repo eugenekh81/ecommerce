@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { shallowEqual, useSelector } from 'react-redux';
 import {
   AppBar,
   Menu,
@@ -13,6 +12,8 @@ import {
 import { ShoppingCart, Menu as MenuIcon, Favorite } from '@mui/icons-material';
 import { CartPreview } from '../CartPreview';
 import { useNavigate } from 'react-router';
+import { cartSelector } from '../../pages/CartPage/redux/selectors';
+import { favoritesSelector } from '../../pages/FavoritesPage/redux/selectors';
 
 type Props = {
   open: boolean;
@@ -27,10 +28,8 @@ export const Navbar: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
 
-  const { items } = useSelector((state: RootState) => state.cart);
-  const { items: favorites } = useSelector(
-    (state: RootState) => state.favorites
-  );
+  const { items } = useSelector(cartSelector, shallowEqual);
+  const { items: favorites } = useSelector(favoritesSelector, shallowEqual);
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
   const totalFavorites = favorites.length;

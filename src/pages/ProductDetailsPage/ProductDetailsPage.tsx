@@ -1,12 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { useParams } from 'react-router';
-import { RootState } from '../../redux/store';
 import { useEffect } from 'react';
-import {
-  clearProduct,
-  fetchProduct,
-} from '../../redux/slices/productDetailsSlice';
+import { clearProduct, fetchProduct } from './redux/productDetailsSlice';
 import {
   Button,
   Card,
@@ -16,14 +12,17 @@ import {
   Container,
   Typography,
 } from '@mui/material';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addToCart } from '../CartPage/redux/cartSlice';
+import { productDetailsSelector } from './redux/selectors';
 
 export const ProductDetailsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams<{ id: string }>();
-  const { product, loading, error } = useSelector(
-    (state: RootState) => state.productDetails
-  );
+  const {
+    product,
+    productLoading: loading,
+    productError: error,
+  } = useSelector(productDetailsSelector, shallowEqual);
 
   useEffect(() => {
     if (id) dispatch(fetchProduct(+id));

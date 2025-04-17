@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../../redux/store';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
 import {
   updateQuantity,
   removeFromCart,
   addToCart,
-} from '../../redux/slices/cartSlice';
+} from '../../pages/CartPage/redux/cartSlice';
 import { Link } from 'react-router';
 import { ProductIS } from '../../types/ProductIS';
 import {
@@ -25,16 +25,16 @@ import {
   Favorite,
   FavoriteBorder,
 } from '@mui/icons-material';
-import { toggleFavorite } from '../../redux/slices/favoritesSlice';
+import { toggleFavorite } from '../../pages/FavoritesPage/redux/favoritesSlice';
+import { cartSelector } from '../../pages/CartPage/redux/selectors';
+import { favoritesSelector } from '../../pages/FavoritesPage/redux/selectors';
 
 export const ProductCard: React.FC<ProductIS> = (product) => {
   const { id, image, title, description, price, rating } = product;
 
   const dispatch = useDispatch<AppDispatch>();
-  const { items: products } = useSelector((state: RootState) => state.cart);
-  const { items: favorites } = useSelector(
-    (state: RootState) => state.favorites
-  );
+  const { items: products } = useSelector(cartSelector, shallowEqual);
+  const { items: favorites } = useSelector(favoritesSelector, shallowEqual);
   const isFavorite = favorites.some((f) => f.id === id);
   const cartItem = products.find((p) => p.id === id);
 

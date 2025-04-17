@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../../redux/store';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
 import {
   Container,
   Typography,
@@ -13,11 +13,12 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import { clearCart } from '../../redux/slices/cartSlice';
+import { clearCart } from '../CartPage/redux/cartSlice';
+import { cartSelector } from '../CartPage/redux/selectors';
 
 export const CheckoutPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { items, totalAmount } = useSelector((state: RootState) => state.cart);
+  const { items, totalAmount } = useSelector(cartSelector, shallowEqual);
 
   const [formData, setFormData] = React.useState({
     name: '',

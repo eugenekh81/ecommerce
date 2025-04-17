@@ -1,11 +1,7 @@
 import React from 'react';
-import { AppDispatch, RootState } from '../../redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  removeFromCart,
-  clearCart,
-  updateQuantity,
-} from '../../redux/slices/cartSlice';
+import { AppDispatch } from '../../redux/store';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { removeFromCart, clearCart, updateQuantity } from './redux/cartSlice';
 import { useNavigate } from 'react-router';
 
 import {
@@ -20,22 +16,19 @@ import {
   ButtonGroup,
 } from '@mui/material';
 import { Delete, Add, Remove } from '@mui/icons-material';
+import { cartSelector } from './redux/selectors';
 
 export const CartPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { items, totalAmount } = useSelector((state: RootState) => state.cart);
+  const { items, totalAmount } = useSelector(cartSelector, shallowEqual);
 
   const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));
   };
 
   const handleQuantityChange = (id: number, quantity: number) => {
-    console.log('id', id, 'quantity', quantity);
-
     if (quantity >= 1) {
-      console.log('dispatching updateQuantity');
-
       dispatch(updateQuantity({ id, quantity }));
     }
   };

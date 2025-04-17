@@ -3,10 +3,10 @@ import { ProductList } from '../../components/ProductList';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { CircularProgress, Typography } from '@mui/material';
-import { fetchProducts } from '../ProductsPage/redux/productsSlice';
-import { productsSelector } from '../ProductsPage/redux/selectors';
+import { fetchProducts } from './redux/productsSlice';
+import { productsSelector } from './redux/selectors';
 
-export const HomePage: React.FC = () => {
+export const ProductsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading, error } = useSelector(productsSelector, shallowEqual);
 

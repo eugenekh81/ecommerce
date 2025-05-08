@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { userSelector } from './redux/selectors';
@@ -43,10 +43,12 @@ export const RegisterPage: React.FC = () => {
     setFormData({ username: '', email: '', password: '' });
   };
 
-  if (user) {
-    navigate('/');
-    return null;
-  }
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/ecommerce');
+    }
+  }, [user, navigate]);
 
   return (
     <Container maxWidth='xs'>

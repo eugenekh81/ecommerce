@@ -3,7 +3,7 @@ import {
   register,
   setUserLoading,
   setUser,
-  logoutUser,
+  // logoutUser,
   registerError,
 } from './userSlice';
 import { registerUser } from '../../../api/auth';
@@ -15,16 +15,17 @@ registerMiddleware.startListening({
   actionCreator: register,
   effect: async (action, listenerApi) => {
     const { email, username, password } = action.payload;
-    listenerApi.dispatch(register({ email, username, password }));
     listenerApi.dispatch(setUserLoading());
+
     const response: UserType = await registerUser({
       email,
       username,
       password,
     });
 
+    console.log(response);
+
     if (response) {
-      return;
       listenerApi.dispatch(setUser(response));
     } else {
       listenerApi.dispatch(registerError('Failed to fetch products'));

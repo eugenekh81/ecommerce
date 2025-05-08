@@ -1,7 +1,7 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '../../../redux/types';
 
-const fetchProducts = createAction('products/fetchProducts');
+export const fetchProducts = createAction('products/fetchProducts');
 
 interface ProductsState {
   items: Product[];
@@ -34,11 +34,5 @@ const { actions, reducer } = createSlice({
   },
 });
 
-const { setProductsLoading, setProductsError, setProducts } = actions;
-export {
-  setProductsLoading,
-  setProductsError,
-  setProducts,
-  fetchProducts,
-  reducer,
-};
+export const { setProductsLoading, setProductsError, setProducts } = actions;
+export default reducer;

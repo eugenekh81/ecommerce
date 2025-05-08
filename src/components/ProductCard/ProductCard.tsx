@@ -6,7 +6,7 @@ import {
   addToCart,
 } from '../../pages/CartPage/redux/cartSlice';
 import { Link } from 'react-router';
-import { ProductIS } from '../../types/ProductIS';
+import { ProductIS } from '../../types/ProductType';
 import {
   Card,
   CardMedia,

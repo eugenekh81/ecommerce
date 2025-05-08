@@ -1,7 +1,7 @@
 import { shallowEqual, useSelector } from 'react-redux';
 import { Box, Typography, Grid } from '@mui/material';
 import { ProductCard } from '../../components/ProductCard'; // Assuming you already have the ProductCard component
-import { ProductIS } from '../../types/ProductIS';
+import { ProductIS } from '../../types/ProductType';
 import { favoritesSelector } from './redux/selectors';
 
 export const FavoritesPage: React.FC = () => {

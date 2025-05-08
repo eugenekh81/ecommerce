@@ -6,7 +6,7 @@ import {
   setProducts,
 } from './productsSlice';
 import { fetchProducts } from '../../../api/products';
-import { ProductIS } from '../../../types/ProductIS';
+import { ProductIS } from '../../../types/ProductType';
 
 const productsMW = createListenerMiddleware();
 

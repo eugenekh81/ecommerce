@@ -8,12 +8,14 @@ import {
   Toolbar,
   Typography,
   Box,
+  Button,
 } from '@mui/material';
 import { ShoppingCart, Menu as MenuIcon, Favorite } from '@mui/icons-material';
 import { CartPreview } from '../CartPreview';
 import { useNavigate } from 'react-router';
 import { cartSelector } from '../../pages/CartPage/redux/selectors';
 import { favoritesSelector } from '../../pages/FavoritesPage/redux/selectors';
+import { userSelector } from '../../pages/RegisterPage/redux/selectors';
 
 type Props = {
   open: boolean;
@@ -40,6 +42,13 @@ export const Navbar: React.FC<Props> = ({
 
   const handleCartDropdownToggle = (e: React.MouseEvent<HTMLElement>) =>
     setAnchorEl(isCartOpen ? null : e.currentTarget);
+
+  const { user } = useSelector(userSelector, shallowEqual);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('login');
+  };
 
   return (
     <AppBar
@@ -102,6 +111,24 @@ export const Navbar: React.FC<Props> = ({
         >
           <CartPreview handleCartClose={handleCartClose} />
         </Menu>
+
+        {!user ? (
+          <Box>
+          <Button color="inherit" onClick={() => navigate('login')}>
+            Login
+          </Button>
+          <Button color="inherit" onClick={() => navigate('register')}>
+            Register
+          </Button>
+        </Box>
+        ) : (
+          <Box display="flex" alignItems="center" gap={1}>
+            <Typography variant="body1">{user.email}</Typography>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );

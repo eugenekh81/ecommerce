@@ -1,4 +1,4 @@
-import { Rating } from './RatingIS';
+import { Rating } from './RatingType';
 
 export interface ProductIS {
   category: string;

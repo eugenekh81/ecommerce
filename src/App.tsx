@@ -9,6 +9,8 @@ import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { CartPage } from './pages/CartPage';
 import { CheckoutPage } from './pages/CheckoutPage';
 import { FavoritesPage } from './pages/FavoritesPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,7 @@ const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
+        // PRODUCTS PATH
         path: 'products',
         children: [
           {
@@ -47,6 +50,14 @@ const router = createBrowserRouter([
       {
         path: 'checkout',
         element: <CheckoutPage />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
       },
     ],
   },

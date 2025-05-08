@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductIS } from '../../../types/ProductIS';
+import { ProductIS } from '../../../types/ProductType';
 
 interface FavoritesSlice {
   items: ProductIS[];
@@ -28,5 +28,5 @@ const { actions, reducer } = createSlice({
   },
 });
 
-const { toggleFavorite } = actions;
-export { toggleFavorite, reducer };
+export const { toggleFavorite } = actions;
+export default reducer;

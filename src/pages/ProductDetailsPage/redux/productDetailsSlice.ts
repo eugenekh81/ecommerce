@@ -1,6 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const fetchProduct = createAction<number>('productDetail/fetchProduct');
+export const fetchProduct = createAction<number>('productDetail/fetchProduct');
 
 interface Product {
   id: number;
@@ -46,17 +46,7 @@ const { actions, reducer } = createSlice({
   },
 });
 
-const {
-  clearProduct,
-  setProductLoading,
-  setProductError,
-  setProduct,
-} = actions;
-export {
-  clearProduct,
-  setProductLoading,
-  setProductError,
-  setProduct,
-  fetchProduct,
-  reducer,
-};
+export const { clearProduct, setProductLoading, setProductError, setProduct } =
+  actions;
+
+export default reducer;

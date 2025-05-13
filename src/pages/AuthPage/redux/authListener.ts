@@ -1,5 +1,4 @@
 import {
-  login,
   loginStart,
   loginFailure,
   loginSuccess,
@@ -9,11 +8,11 @@ import { loginUser } from '../../../api/auth';
 import featureListener from '../../../redux/listeners/featureListener';
 
 featureListener.startListening({
-  actionCreator: login,
+  actionCreator: loginStart,
   effect: async (action, listenerApi) => {
-    listenerApi.dispatch(loginStart());
-
     const { username, password } = action.payload;
+    listenerApi.dispatch(loginStart({ username, password }));
+
     const response = await loginUser({ username, password });
 
     if (response) {

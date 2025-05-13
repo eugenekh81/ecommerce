@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import {
   AppBar,
   Menu,

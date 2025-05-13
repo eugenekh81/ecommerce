@@ -1,14 +1,12 @@
-import { createListenerMiddleware } from '@reduxjs/toolkit';
 import {
   setProduct,
   setProductError,
   fetchProduct as fetchProductAction,
 } from '../redux/productDetailsSlice';
 import { fetchProduct } from '../../../api/products';
+import featureListener from '../../../redux/listeners/featureListener';
 
-const listener = createListenerMiddleware();
-
-listener.startListening({
+featureListener.startListening({
   actionCreator: fetchProductAction,
   effect: async (action, listenerApi) => {
     const id = action.payload;
@@ -22,4 +20,3 @@ listener.startListening({
   },
 });
 
-export default listener;

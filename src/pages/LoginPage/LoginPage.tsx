@@ -13,7 +13,7 @@ import {
 
 import { useNavigate } from 'react-router';
 import { authSelector } from './redux/selectors';
-import { login } from './redux/authSlice';
+import { loginStart } from './redux/authSlice';
 import { userSelector } from '../RegisterPage/redux/selectors';
 
 export const LoginPage: React.FC = () => {
@@ -25,8 +25,8 @@ export const LoginPage: React.FC = () => {
   const { user } = useSelector(userSelector, shallowEqual);
 
   const [{ username, password }, setFormData] = useState({
-    username: '',
-    password: '',
+    username: 'johnd',
+    password: 'm38rmF$',
   });
 
   const handleFormInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,11 +40,11 @@ export const LoginPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(login({ username, password }));
+    dispatch(loginStart({ username, password }));
   };
 
   if (user) {
-    navigate('/');
+    navigate('/ecommerce');
     return null;
   }
 

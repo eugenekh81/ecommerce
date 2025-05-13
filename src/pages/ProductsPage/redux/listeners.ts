@@ -1,19 +1,15 @@
-import { createListenerMiddleware } from '@reduxjs/toolkit';
 import {
-  fetchProducts as fetchProductsAction,
+  getProducts,
   setProductsError,
-  setProductsLoading,
   setProducts,
 } from './productsSlice';
 import { fetchProducts } from '../../../api/products';
 import { ProductIS } from '../../../types/ProductType';
+import featureListener from '../../../redux/listeners/featureListener';
 
-const productsMW = createListenerMiddleware();
-
-productsMW.startListening({
-  actionCreator: fetchProductsAction,
+featureListener.startListening({
+  actionCreator: getProducts,
   effect: async (_, listenerApi) => {
-    listenerApi.dispatch(setProductsLoading(true));
     const response: ProductIS[] = await fetchProducts({ url: '/products' });
 
     if (response) {
@@ -23,5 +19,3 @@ productsMW.startListening({
     }
   },
 });
-
-export default productsMW;

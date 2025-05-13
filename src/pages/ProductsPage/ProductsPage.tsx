@@ -3,7 +3,7 @@ import { ProductList } from '../../components/ProductList';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { CircularProgress, Typography } from '@mui/material';
-import { fetchProducts } from './redux/productsSlice';
+import { getProducts } from './redux/productsSlice';
 import { productsSelector } from './redux/selectors';
 
 export const ProductsPage: React.FC = () => {
@@ -11,9 +11,8 @@ export const ProductsPage: React.FC = () => {
   const { items, loading, error } = useSelector(productsSelector, shallowEqual);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(getProducts());
   }, [dispatch]);
-  console.log(items);
 
   if (loading)
     return (

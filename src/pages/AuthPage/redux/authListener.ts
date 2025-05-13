@@ -1,4 +1,3 @@
-import { createListenerMiddleware } from '@reduxjs/toolkit';
 import {
   login,
   loginStart,
@@ -7,10 +6,9 @@ import {
   logout,
 } from '../../LoginPage/redux/authSlice';
 import { loginUser } from '../../../api/auth';
+import featureListener from '../../../redux/listeners/featureListener';
 
-const loginListener = createListenerMiddleware();
-
-loginListener.startListening({
+featureListener.startListening({
   actionCreator: login,
   effect: async (action, listenerApi) => {
     listenerApi.dispatch(loginStart());
@@ -27,13 +25,10 @@ loginListener.startListening({
   },
 });
 
-const logoutListener = createListenerMiddleware();
-logoutListener.startListening({
+featureListener.startListening({
   actionCreator: logout,
   effect: async (_, listenerApi) => {
     localStorage.removeItem('token');
     listenerApi.dispatch(logout());
   },
 });
-
-export { loginListener, logoutListener };

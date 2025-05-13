@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
   AppBar,
   Menu,
@@ -15,7 +15,10 @@ import { CartPreview } from '../CartPreview';
 import { useNavigate } from 'react-router';
 import { cartSelector } from '../../pages/CartPage/redux/selectors';
 import { favoritesSelector } from '../../pages/FavoritesPage/redux/selectors';
-import { userSelector } from '../../pages/RegisterPage/redux/selectors';
+import {
+  isLoggedInSelector,
+  userSelector,
+} from '../../pages/RegisterPage/redux/selectors';
 
 type Props = {
   open: boolean;
@@ -44,9 +47,11 @@ export const Navbar: React.FC<Props> = ({
     setAnchorEl(isCartOpen ? null : e.currentTarget);
 
   const { user } = useSelector(userSelector, shallowEqual);
+  const isLoggedIn = useSelector(isLoggedInSelector, shallowEqual);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     navigate('login');
   };
 
@@ -112,19 +117,19 @@ export const Navbar: React.FC<Props> = ({
           <CartPreview handleCartClose={handleCartClose} />
         </Menu>
 
-        {!user ? (
+        {!isLoggedIn ? (
           <Box>
-          <Button color="inherit" onClick={() => navigate('login')}>
-            Login
-          </Button>
-          <Button color="inherit" onClick={() => navigate('register')}>
-            Register
-          </Button>
-        </Box>
+            <Button color='inherit' onClick={() => navigate('login')}>
+              Login
+            </Button>
+            <Button color='inherit' onClick={() => navigate('register')}>
+              Register
+            </Button>
+          </Box>
         ) : (
-          <Box display="flex" alignItems="center" gap={1}>
-            <Typography variant="body1">{user.email}</Typography>
-            <Button color="inherit" onClick={handleLogout}>
+          <Box display='flex' alignItems='center' gap={1}>
+            <Typography variant='body1'>{user?.email}</Typography>
+            <Button color='inherit' onClick={handleLogout}>
               Logout
             </Button>
           </Box>

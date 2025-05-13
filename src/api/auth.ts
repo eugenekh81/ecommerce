@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { AppDispatch } from '../redux/store';
+import { loginSuccess } from '../pages/LoginPage/redux/authSlice';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_URL = `${BASE_URL}`;
 
-export const registerUser = async ({
+const registerUser = async ({
   email,
   password,
   username,
@@ -24,7 +26,7 @@ export const registerUser = async ({
   }
 };
 
-export const loginUser = async ({
+const loginUser = async ({
   username,
   password,
 }: {
@@ -32,13 +34,26 @@ export const loginUser = async ({
   password: string;
 }) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, {
-      email: username,
+    const response = await axios.post(`${API_URL}/auth/login`, {
+      username,
       password,
     });
+
+    localStorage.setItem('token', JSON.stringify(response.data.token));
+    console.log(response.data);
 
     return response.data;
   } catch {
     throw new Error('Failed to login user');
   }
 };
+
+const restoreAuth = (dispatch: AppDispatch) => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    dispatch(loginSuccess(JSON.parse(token)));
+  }
+};
+
+export { registerUser, loginUser, restoreAuth };

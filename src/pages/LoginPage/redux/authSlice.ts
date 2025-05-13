@@ -1,8 +1,4 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export const login = createAction<{ username: string; password: string }>(
-  'auth/login'
-);
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AuthState = {
   token: string | null;
@@ -22,7 +18,7 @@ const { actions, reducer } = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginStart: (state) => {
+    loginStart: (state, _action) => {
       state.loginLoading = true;
       state.loginError = null;
     },
@@ -30,8 +26,6 @@ const { actions, reducer } = createSlice({
       state.loginLoading = false;
       state.isLoggedIn = true;
       state.token = action.payload;
-      // TODO: move saving token to API call
-      localStorage.setItem('token', JSON.stringify(action.payload));
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.loginLoading = false;

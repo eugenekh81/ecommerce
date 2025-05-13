@@ -1,13 +1,5 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserType } from '../../../types/UserType';
-
-export const register = createAction<{
-  email: string;
-  username: string;
-  password: string;
-}>('user/register');
-
-
 
 type UserState = {
   user: UserType | null;
@@ -27,7 +19,14 @@ const { actions, reducer } = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserLoading: (state) => {
+    register: (
+      state,
+      _action: PayloadAction<{
+        email: string;
+        username: string;
+        password: string;
+      }>
+    ) => {
       state.registerLoading = true;
     },
     setUser: (
@@ -57,5 +56,5 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { setUserLoading, setUser, logoutUser, registerError } = actions;
+export const { register, setUser, logoutUser, registerError } = actions;
 export default reducer;

@@ -6,10 +6,14 @@ import {
   ListItemText,
 } from '@mui/material';
 
-import { useState } from 'react';
+import { AppDispatch } from '../../redux/store';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router';
+import { restoreAuth } from '../../api/auth';
 
 import { Navbar } from '../Navbar/';
+import { isLoggedInSelector } from '../../pages/RegisterPage/redux/selectors';
 
 const drawerWidth = 240;
 
@@ -20,6 +24,14 @@ export const Layout: React.FC = () => {
     setOpen(!open);
   };
 
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoggedIn = useSelector(isLoggedInSelector, shallowEqual);
+
+  useEffect(() => {
+    restoreAuth(dispatch);
+  }, [dispatch]);
+
+  console.log(isLoggedIn);
   return (
     <div style={{ display: 'flex' }}>
       <CssBaseline />

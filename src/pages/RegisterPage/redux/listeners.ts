@@ -1,29 +1,23 @@
-import { createListenerMiddleware } from '@reduxjs/toolkit';
 import {
   register,
-  setUserLoading,
   setUser,
   // logoutUser,
   registerError,
 } from './userSlice';
 import { registerUser } from '../../../api/auth';
 import { UserType } from '../../../types/UserType';
+import featureListener from '../../../redux/listeners/featureListener';
 
-const registerMiddleware = createListenerMiddleware();
-
-registerMiddleware.startListening({
+featureListener.startListening({
   actionCreator: register,
   effect: async (action, listenerApi) => {
     const { email, username, password } = action.payload;
-    listenerApi.dispatch(setUserLoading());
 
     const response: UserType = await registerUser({
       email,
       username,
       password,
     });
-
-    console.log(response);
 
     if (response) {
       listenerApi.dispatch(setUser(response));
@@ -32,5 +26,3 @@ registerMiddleware.startListening({
     }
   },
 });
-
-export default registerMiddleware;

@@ -1,3 +1,6 @@
 import { RootState } from '../../../redux/store';
 
-export const userSelector = (state: RootState) => state.user;
+const userSelector = (state: RootState) => state.user;
+const isLoggedInSelector = (state: RootState) => state.user.isLoggedIn;
+
+export { userSelector, isLoggedInSelector };
